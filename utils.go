@@ -1,15 +1,15 @@
-package mathutils
+package distro
 
 import (
 	"math"
 )
 
-func Round(f float64, places int) float64 {
+func round(f float64, places int) float64 {
 	shift := math.Pow(10, float64(places))
 	return math.Floor(f*shift+.5) / shift
 }
 
-func Permutation(n int, k int) int {
+func permutation(n int, k int) int {
 	v := 1
 	if 0 < k && k <= n {
 		for i := 0; i < k; i++ {
@@ -21,6 +21,6 @@ func Permutation(n int, k int) int {
 	return v
 }
 
-func Factorial(n int) int {
-	return Permutation(n, n-1)
+func factorial(n int) int {
+	return permutation(n, n-1)
 }

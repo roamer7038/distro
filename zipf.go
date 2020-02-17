@@ -52,30 +52,30 @@ func NewZipf(r *rand.Rand, n int, alpha float64) (*Zipf, error) {
 	}, err
 }
 
-func (self *Zipf) Pdf(rank int) (float64, error) {
+func (z *Zipf) Pdf(rank int) (float64, error) {
 	var err error
 
-	if rank < 0 || self.n < rank {
-		err = fmt.Errorf("Invalid parameter n=%d", self.n)
+	if rank < 0 || z.n < rank {
+		err = fmt.Errorf("Invalid parameter n=%d", z.n)
 	}
-	return self.f[rank-1], err
+	return z.f[rank-1], err
 }
 
-func (self *Zipf) Cdf(rank int) (float64, error) {
+func (z *Zipf) Cdf(rank int) (float64, error) {
 	var err error
 
-	if rank < 0 || self.n < rank {
-		err = fmt.Errorf("Invalid parameter n=%d", self.n)
+	if rank < 0 || z.n < rank {
+		err = fmt.Errorf("Invalid parameter n=%d", z.n)
 	}
-	return self.c[rank-1], err
+	return z.c[rank-1], err
 }
 
-func (self *Zipf) Uint64() uint64 {
+func (z *Zipf) Uint64() uint64 {
 	var rank uint64
-	r := self.r.Float64()
+	r := z.r.Float64()
 
-	for i := 1; i <= self.n; i++ {
-		if r < self.c[i-1] {
+	for i := 1; i <= z.n; i++ {
+		if r < z.c[i-1] {
 			rank = uint64(i)
 			break
 		}

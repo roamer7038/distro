@@ -42,7 +42,8 @@ the cumulative distribution function, which describes a probability up to specif
 returns a pseudo-random 64-bit value according to Zipf distribution.
 
 ### func NewGamma(r \*Rand, n int, k float64, thita float64) (\*Gamma, error)
-Generate a probability distribution that follows the Gamma distribution.
+Generate a probability distribution that follows the Gamma distribution. 
+What is important is the values obtained by this method are normalized.
 - `k` : a shape parameter.
 - `thita`: a scale parameter θ.
 
