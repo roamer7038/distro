@@ -1,3 +1,4 @@
+// distro パッケージは，確率分布に基づいた疑似乱数ジェネレータを提供します．
 package distro
 
 import (
@@ -6,6 +7,7 @@ import (
 	"math/rand"
 )
 
+// Zipf はZipf則に基づく確率分布を保持する構造体です．
 type Zipf struct {
 	r *rand.Rand
 	a float64
@@ -14,6 +16,7 @@ type Zipf struct {
 	c []float64
 }
 
+// NewZipf はRand構造体と総コンテンツ数，偏りパラメータを引数に，Zipf構造体を生成します．
 func NewZipf(r *rand.Rand, n int, alpha float64) (*Zipf, error) {
 	var err error
 
@@ -52,6 +55,7 @@ func NewZipf(r *rand.Rand, n int, alpha float64) (*Zipf, error) {
 	}, err
 }
 
+// Pdf は指定した順位のアクセス確率を返します．
 func (z *Zipf) Pdf(rank int) (float64, error) {
 	var err error
 
@@ -61,6 +65,7 @@ func (z *Zipf) Pdf(rank int) (float64, error) {
 	return z.f[rank-1], err
 }
 
+// Cdf は指定した順位までの累積確率を返します．
 func (z *Zipf) Cdf(rank int) (float64, error) {
 	var err error
 
@@ -70,6 +75,7 @@ func (z *Zipf) Cdf(rank int) (float64, error) {
 	return z.c[rank-1], err
 }
 
+// Uint64 はZipf則に基づいた疑似乱数を返します．
 func (z *Zipf) Uint64() uint64 {
 	var rank uint64
 	r := z.r.Float64()

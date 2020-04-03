@@ -27,6 +27,12 @@ func main() {
 
 ## API
 
+Check the documentation using GoDoc (Written in Japanese).
+
+```
+godoc -http=:8000
+```
+
 ### func NewZipf(r \*Rand, n int, alpha float64) (\*Zipf, error)
 Generate a probability distribution that follows the Zipf distribution.
 - `n` : the number of elements.

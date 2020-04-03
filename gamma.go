@@ -6,6 +6,7 @@ import (
 	"math/rand"
 )
 
+// Gamma はガンマ分布に基づく確率分布を保持する構造体です．
 type Gamma struct {
 	r *rand.Rand
 	k float64
@@ -15,6 +16,7 @@ type Gamma struct {
 	c []float64
 }
 
+// NewGamma はRand構造体と総コンテンツ数，形状記憶母数kと尺度母数θを引数に，Gamma構造体を生成します．
 func NewGamma(r *rand.Rand, n int, k float64, thita float64) (*Gamma, error) {
 	var err error
 	var g Gamma
@@ -49,10 +51,12 @@ func NewGamma(r *rand.Rand, n int, k float64, thita float64) (*Gamma, error) {
 	}, err
 }
 
+// pdf は確率密度関数を提供します．
 func (g Gamma) pdf(x int, k float64, thita float64) float64 {
 	return math.Pow(float64(x), k-1) / (math.Gamma(k) * math.Pow(thita, k)) * math.Exp(float64(-x)/thita)
 }
 
+// cdf は累積確率密度関数を提供します．
 func (g Gamma) cdf(x int, k float64, thita float64) float64 {
 	var value float64
 	for i := 1; i <= x; i++ {
@@ -61,6 +65,8 @@ func (g Gamma) cdf(x int, k float64, thita float64) float64 {
 	return value
 }
 
+// Pdf は指定した順位のアクセス確率を返します．
+// この関数が提供する確率は正規化されています．
 func (g *Gamma) Pdf(x int) (float64, error) {
 	var err error
 
@@ -70,6 +76,8 @@ func (g *Gamma) Pdf(x int) (float64, error) {
 	return g.f[x-1], err
 }
 
+// Cdf は指定した順位までの累積確率を返します．
+// この関数が提供する確率は正規化されています．
 func (g *Gamma) Cdf(x int) (float64, error) {
 	var err error
 
@@ -80,6 +88,7 @@ func (g *Gamma) Cdf(x int) (float64, error) {
 	return g.c[x-1], err
 }
 
+// Uint64 はガンマ分布に基づいた疑似乱数を提供します．
 func (g *Gamma) Uint64() uint64 {
 	var x uint64
 	r := g.r.Float64()
