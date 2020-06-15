@@ -46,6 +46,10 @@ func NewZipf(r *rand.Rand, n int, alpha float64) (*Zipf, error) {
 		}
 	}
 
+	if math.IsNaN(cumulative[n-1]) {
+		err = fmt.Errorf("Normalization failed because the value is too large.")
+	}
+
 	return &Zipf{
 		r: r,
 		a: alpha,

@@ -41,6 +41,10 @@ func NewGamma(r *rand.Rand, n int, k float64, thita float64) (*Gamma, error) {
 		}
 	}
 
+	if math.IsNaN(cumulative[n-1]) {
+		err = fmt.Errorf("Normalization failed because the value is too large.")
+	}
+
 	return &Gamma{
 		r: r,
 		k: k,
